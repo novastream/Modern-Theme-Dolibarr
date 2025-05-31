@@ -643,12 +643,15 @@ a:hover, a:active, a:focus {
 }
 
 /* Inputs and forms */
-input:focus:not(.button):not(.buttonwebsite):not(.buttonreset):not(.select2-search__field):not(#top-bookmark-search-input):not(.search_component_input):not(.input-nobottom), select:focus, .select2-container--open [aria-expanded="false"].select2-selection--single, .select2-container--focus span.selection span.select2-selection {
- border-bottom: 1px solid #cbd6e2!important;
- border-bottom-left-radius: 3px!important;
- border-bottom-right-radius: 3px!important;
- border-color: rgba(0, 208, 228, .5)!important;
- box-shadow: 0 0 4px 1px rgba(0, 208, 228, .3), 0 0 0 1px #00d0e4!important;
+input:focus:not([type="checkbox"]):not([type="radio"]):not(.button):not(.buttonwebsite):not(.buttonreset):not(.select2-search__field):not(#top-bookmark-search-input):not(.search_component_input):not(.input-nobottom),
+select:focus,
+.select2-container--open [aria-expanded="false"].select2-selection--single,
+.select2-container--focus span.selection span.select2-selection {
+    border-bottom: 1px solid #cbd6e2 !important;
+    border-bottom-left-radius: 3px !important;
+    border-bottom-right-radius: 3px !important;
+    border-color: rgba(0, 208, 228, .5) !important;
+    box-shadow: 0 0 4px 1px rgba(0, 208, 228, .3), 0 0 0 1px #00d0e4 !important;
 }
 
 input:not([type="submit"]):not([type="button"]):not([type="reset"]),
@@ -658,16 +661,21 @@ select,
  font-weight: 300;
 }
 
-input, textarea, select {
- border: 1px solid #d1dbe5!important;
- border-radius: 3px!important;
- padding: 6px!important;
- background-color: #ffffff!important;
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
+textarea,
+select {
+    border: 1px solid #d1dbe5 !important;
+    border-radius: 3px !important;
+    padding: 6px !important;
+    background-color: #ffffff !important;
 }
-input:focus, textarea:focus, select:focus {
- outline: none!important;
- border-color: #00a4bd!important;
- box-shadow: 0 0 0 2px rgba(0,164,189,0.2)!important;
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]):focus,
+textarea:focus,
+select:focus {
+    outline: none !important;
+    border-color: #00a4bd !important;
+    box-shadow: 0 0 0 2px rgba(0, 164, 189, 0.2) !important;
 }
 
 /* == SELECT2 SINGLE == */
@@ -1003,4 +1011,156 @@ div.ui-tooltip.mytooltip {
     overflow-wrap: break-word;
     min-width: 200px!important;
     max-width: 350px!important;
+}
+
+/* Checkboxes */
+input[type="radio"],
+input[type="checkbox"] {
+  position: relative !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-top: 0px;
+  margin-bottom: -3px;
+  box-sizing: content-box;
+  overflow: hidden;
+}
+input[type="radio"]:hover,
+input[type="checkbox"]:hover {
+  cursor: pointer;
+  /*background-color: rgb(234, 240, 246);*/
+}
+
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+    border-bottom: 0px solid #fff!important;
+}
+
+input[type="radio"]:before,
+input[type="checkbox"]:before {
+  content: "";
+  display: block;
+  box-sizing: content-box;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #ccc;
+  transition: 0.2s border-color ease;
+}
+input[type="radio"]:checked:before,
+input[type="checkbox"]:checked:before {
+  border-color: rgb(0, 164, 189);
+  transition: 0.5s border-color ease;
+}
+input[type="radio"]:disabled:before,
+input[type="checkbox"]:disabled:before {
+  border-color: #ccc;
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+input[type="radio"]:after,
+input[type="checkbox"]:after {
+  content: "";
+  display: block;
+  position: absolute;
+  box-sizing: content-box;
+  top: 50%;
+  left: 50%;
+  transform-origin: 50% 50%;
+  background-color: rgb(0, 164, 189);
+  width: 12px;
+  height: 12px;
+  border-radius: 100vh;
+  transform: translate(-50%, -50%) scale(0);
+}
+input[type="radio"]:before {
+  border-radius: 100vh;
+}
+input[type="radio"]:after {
+  width: 12px;
+  height: 12px;
+  border-radius: 100vh;
+  transform: translate(-50%, -50%) scale(0);
+}
+input[type="radio"]:checked:after {
+  -webkit-animation: toggleOnRadio 0.2s ease forwards;
+  animation: toggleOnRadio 0.2s ease forwards;
+}
+input[type="checkbox"]:before {
+  border-radius: 4px;
+}
+input[type="checkbox"]:after {
+  width: 6.6px;
+  height: 11px;
+  border-radius: 0;
+  transform: translate(-50%, -85%) scale(0) rotate(45deg);
+  background-color: transparent;
+  box-shadow: 3px 3px 0px 0px rgb(0, 164, 189);
+}
+input[type="checkbox"]:checked:after {
+  -webkit-animation: toggleOnCheckbox 0.2s ease forwards;
+  animation: toggleOnCheckbox 0.2s ease forwards;
+}
+input[type="checkbox"].filled:before {
+  border-radius: 4px;
+  transition: 0.2s border-color ease, 0.2s background-color ease;
+}
+input[type="checkbox"].filled:checked:not(:disabled):before {
+  background-color: rgb(0, 164, 189);
+}
+input[type="checkbox"].filled:not(:disabled):after {
+  box-shadow: 3px 3px 0px 0px white;
+}
+@-webkit-keyframes toggleOnCheckbox {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -85%) scale(0) rotate(45deg);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -85%) scale(0.9) rotate(45deg);
+  }
+  100% {
+    transform: translate(-50%, -85%) scale(0.8) rotate(45deg);
+  }
+}
+@keyframes toggleOnCheckbox {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -85%) scale(0) rotate(45deg);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -85%) scale(0.9) rotate(45deg);
+  }
+  100% {
+    transform: translate(-50%, -85%) scale(0.8) rotate(45deg);
+  }
+}
+@-webkit-keyframes toggleOnRadio {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+@keyframes toggleOnRadio {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
 }
